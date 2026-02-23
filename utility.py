@@ -36,12 +36,32 @@ def extract_emoji_features(text):
     has_positive = bool(re.search(r":\)|:D|;\)", text))
     
     # Has any negative emoticon
-    has_negative = bool(re.search(r":\(|:\"|D:", text))
+    has_negative = bool(re.search(r":\(|:\"|D:|</3", text))
     
     # Has crying emoticon
     has_crying = bool(re.search(r":\"|T_T|Q_Q", text))
     
     return int(has_positive), int(has_negative), int(has_crying)
+
+def improved_extract_emoji_features(text):
+    """
+    Track if ANY emojis present.
+    
+    :param text: data instance
+    """
+    pass
+    
+    # # Has any positive emoticon
+    # has_positive = bool(re.search(r":\)|:D|;\)", text))
+    
+    # # Has any negative emoticon
+    # has_negative = bool(re.search(r":\(|:\"|D:|</3", text))
+    
+    # # Has crying emoticon
+    # has_crying = bool(re.search(r":\"|T_T|Q_Q", text))
+    
+    # return int(has_positive), int(has_negative), int(has_crying)
+
 
 def extract_case_features(text):
     """
@@ -62,7 +82,7 @@ def extract_linguistic_features(text_col: pd.Series):
     """
     Extract all linguistic features from CASE-PRESERVED text.
     
-    :param text_col: The dataframe containing the text data
+    :param text_col: The column containing the text data
     """
     features = pd.DataFrame()
     
@@ -78,12 +98,12 @@ def extract_linguistic_features(text_col: pd.Series):
     absolutist = r"\b(absolutely|all|always|complete|completely|constant|constantly|definitely|entire|entirely|ever|every|everyone|everything|full|must|never|nothing|totally|whole)\b"
     features["absolutist_count"] = text_col.str.count(absolutist, flags=re.IGNORECASE)
     
-    # Negative emotion
+    # Negative emotion (Find backing, and revise if ever)
     negative = r"\b(sad|miserable|unhappy|depressed|hopeless|worthless|alone|lonely|hurt|pain|suffer|cry|tears|awful|terrible|horrible)\b"
     features["negative_emotion"] = text_col.str.count(negative, flags=re.IGNORECASE)
     
     # Death-related
-    death = r"\b(death|die|dead|dying|suicide|suicidal|kill|killed|killing|end|ending)\b"
+    death = r"\b(death|die|dead|dying|suicide|suicidal|kill|killed|killing|end|ending|struggle|struggling)\b"
     features["death_related"] = text_col.str.count(death, flags=re.IGNORECASE)
     
     # Past tense
