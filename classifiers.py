@@ -2,25 +2,23 @@ import torch
 from torch import nn
 
 class NeuralNetwork(nn.Module):
-    def __init__(self, input_size: int, hidden_layers: list, output_size: int): 
+    def __init__(self, input_size: int, hidden_layers: list, output_size: int, dropout=0.3):
         super().__init__()
 
-        layer = []
-
-        layer.append(nn.Flatten())
+        layers = []
 
         sizes = [input_size] + hidden_layers + [output_size]
 
         for i in range(len(sizes) - 2):
-            layers = [
+            layers.extend([
                 nn.Linear(sizes[i], sizes[i+1]),
-                nn.ReLU()
-            ]
-            layer.extend(layers)
+                nn.ReLU(),
+                nn.Dropout(dropout)
+            ])
 
-        layer.append(nn.Linear(sizes[-2], sizes[-1]))
+        layers.append(nn.Linear(sizes[-2], sizes[-1]))
 
-        self.model = nn.Sequential(*layer)
-        
+        self.model = nn.Sequential(*layers)
+
     def forward(self, x):
         return self.model(x)

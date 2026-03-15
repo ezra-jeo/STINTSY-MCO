@@ -3,8 +3,6 @@ import pandas as pd
 import numpy as np
 import emoji
 
-# Plan 1, revise the dataset from the getgo and just say the limitaiton of tf-idf as the error for error analysis, model improvements will be made in neural network anyways.
-# Plan 2, revise format, don't rely on data_cleaning.ipynb for cleaning, make a separate function for it. Pipeline. Easy calling and allows for you to split dataset immediately first to not worry about this.
 def extract_case_features(text: str):
     """
     Helper function for case feature extraction.
