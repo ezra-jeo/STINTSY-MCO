@@ -12,11 +12,13 @@ class NeuralNetwork(nn.Module):
         for i in range(len(sizes) - 2):
             layers.extend([
                 nn.Linear(sizes[i], sizes[i+1]),
-                nn.ReLU(),
+                nn.ReLU(), # relu used by default
                 nn.Dropout(dropout)
             ])
 
         layers.append(nn.Linear(sizes[-2], sizes[-1]))
+
+        # final acitvation (softmax/sigmoid) is handled by the loss function 
 
         self.model = nn.Sequential(*layers)
 
