@@ -4,6 +4,7 @@ import re
 def clean_reddit_posts(text):
     """
     Cleans all of the combined title and posts.
+    This function holds all of the cleaning done in the data cleaning notebook. It unifies it for easier changes.
     
     :param text: The text value
     """
