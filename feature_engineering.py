@@ -190,8 +190,3 @@ def extract_all_features(text_col: pd.Series):
     features['emoji_implicit_distress'] = [x[3] for x in emoji_feat]
     
     return features
-
-def preprocess_traditional(X: pd.DataFrame, y: np.array, train: bool) -> tuple:
-    """
-    Function that takes train and labels and preprocesses.
-    """
